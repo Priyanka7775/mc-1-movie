@@ -41,16 +41,22 @@ public class MovieService {
       return movieTreeSet;
     }
 
-    public List<String> getMovieWithHighestRating(Map<Movie,Integer> map){
+    public List<String> getMovieWithHighestRating(Map<Movie,Integer> map) {
         //Create a ArrayList object of type String
-        List<String> list=new ArrayList<>();
+        List<String> movieArrayList = new ArrayList();
+        movieArrayList.add(map.entrySet().iterator().next().getKey().getMovieName());
+
         //get the first value from the map and store it in the variable max
-        for (Map.Entry<Movie,Integer>integerEntry: map.entrySet()){
-            if (integerEntry.getValue()==5){
-                list.add(integerEntry.getKey().getMovieName());
+
+        // Use entrySet().iterator().next() method to retrieve the first value of Map object
+        int max = map.entrySet().iterator().next().getValue();
+        for (Map.Entry<Movie, Integer> entry : map.entrySet()) {
+
+            if (entry.getValue() > max) {
+                //   System.out.println("movieArrayList = " + movieArrayList);
+                movieArrayList.set(0, entry.getKey().getMovieName());
             }
         }
-        // Use entrySet().iterator().next() method to retrieve the first value of Map object
 
 
         //get the name of the movie with the highest rating and add it in the List created
@@ -58,7 +64,7 @@ public class MovieService {
         //return the List object
 
 
-        return list;
+        return movieArrayList;
     }
     public Map<String,String> getAllMoviesWithComedy(Map<Movie,Integer> map){
         //Create a Map object
@@ -71,7 +77,7 @@ public class MovieService {
 
         Map<String,String> map1 = new HashMap();
         for (Map.Entry<Movie,Integer>entry: map.entrySet()){
-            if (entry.getKey().getGenre().equalsIgnoreCase("comedy")){
+            if (entry.getKey().getGenre().equals("comedy")){
                 map1.put(entry.getKey().getMovieName(),entry.getKey().getReleaseDate());
             }
         }
